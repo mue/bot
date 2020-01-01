@@ -11,7 +11,7 @@ const client = new Discord.Client({
 });
 const package = require("./package.json");
 const config = require("./config.js");
-const log = require("leeksLazyLogger");
+const log = require("leekslazylogger");
 
 log.init({
     name: "Mue"
