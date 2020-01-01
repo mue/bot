@@ -1,0 +1,23 @@
+{
+  "name": "mue-discord-bot",
+  "version": "1.0.0",
+  "description": "The general-purpose bot for the Mue Discord server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mue/bot.git"
+  },
+  "author": "Mue",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mue/bot/issues"
+  },
+  "homepage": "https://github.com/mue/bot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "leekslazylogger": "^1.1.9"
+  }
+}
