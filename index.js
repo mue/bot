@@ -27,8 +27,8 @@ client.on('ready', () => {
 client.on('guildMemberAdd', (member) => {
     log.console(`${member.user.tag} has joined`);
     if (member.manageable) {
-        member.addRole(member.addRole(member.guild.roles.find(r => r.name === config.autorole_name).id));
-        .then(log.console(`Giving ${member.user.tag} the ${config.autorole_name} role`));
+        member.addRole(member.addRole(member.guild.roles.find(r => r.name === config.autorole_name).id))
+        .then(log.console(`Giving ${member.user.tag} the ${config.autorole_name} role`))
         .catch(log.error(`Couldn't give ${member.user.tag} the ${config.autorole_name} role - an error occurred.`));
     }
 });
