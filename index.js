@@ -4,34 +4,33 @@
  * @author eartharoid (Mue)
  * @license MIT
  */
-const { Client: DiscordClient } = require('eris');
-const { token, autorole } = require('./config');
-const pkg = require('./package.json');
+const Discord = require('discord.js');
+const client = new Discord.Client({
+    autoReconnect: true,
+    disableEveryone: true
+});
+const package = require('./package.json');
+const config = require('./config.js');
+const log = require('leekslazylogger');
 
-const client = new DiscordClient(token, {
-  autoreconnect: true,
-  disableEveryone: true,
-  disableEvents: {
-    PRESENCE_UPDATE: true
-  }
+log.init({
+    name: 'Mue'
+});
+log.info(`Mue v${package.version}`, 'magentaBright');
+log.info('Starting up...');
+
+client.on('ready', () => {
+    log.success('Connected to Discord API');
+    log.success(`Logged in as ${client.user.tag}`);
 });
 
-const logger = require('leekslazylogger');
-logger.init({ name: 'MueBot' });
-
-logger.info(`Mue v${pkg.version}`, 'magentaBright');
-logger.info('Starting...');
-
-client.on('ready', () => logger.success(`Connected to the API as "${client.user.username}#${client.user.discriminator}"`));
-client.on('guildMemberAdd', (guild, member) => {
-  logger.console(`Member ${member.user.username}#${member.user.discriminator} has joined ${guild.name}`);
-  
-  const role = guild.roles.find(r => r.name === autorole);
-  if (!role) logger.warn(`Unable to find role by name "${autorole}"`);
-
-  member.addRole(role.id)
-    .then(() => logger.console(`Gave user ${member.user.username}#${member.user.discriminator} the "${autorole}" role!`))
-    .catch(ex => logger.error(`Cannot give role ${autorole} to ${member.user.username}:\n${ex}`));
+client.on('guildMemberAdd', (member) => {
+    log.console(`${member.user.tag} has joined`);
+    if (member.manageable) {
+        member.addRole(member.addRole(member.guild.roles.find(r => r.name === config.autorole_name).id))
+        .then(log.console(`Giving ${member.user.tag} the ${config.autorole_name} role`))
+        .catch(log.error(`Couldn't give ${member.user.tag} the ${config.autorole_name} role - an error occurred.`));
+    }
 });
 
-client.connect();
+client.login(config.token);
