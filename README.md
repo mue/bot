@@ -1,2 +1,2 @@
 # bot
-Bot for the Mue Discord server 
+Bot for the Mue Discord server
