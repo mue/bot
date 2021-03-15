@@ -1,0 +1,6 @@
+# Directories
+.vscode/
+cogs/__pycache__
+
+# Files
+.env
